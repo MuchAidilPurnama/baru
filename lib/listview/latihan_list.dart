@@ -1,124 +1,134 @@
-
 import 'package:flutter/material.dart';
+
+class ListItem {
+  final String imageUrl; // Tambahkan properti gambar
+  final String text;
+
+  ListItem(this.imageUrl, this.text);
+}
 
 class LatihanList extends StatelessWidget {
   LatihanList({super.key});
-  final List<String> entries = <String>['A', 'B', 'C', 'D'];
-  final List<String> image = <String>[
-    
-    "https://static.promediateknologi.id/crop/0x0:0x0/x/photo/2023/04/16/BLACKPINK-Encore-Concerts-4201449853.jpeg",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8g8Xz6IZg9TXmOScMbosp_IbmMGHu2diFhQ&usqp=CAU",
-    "https://akcdn.detik.net.id/visual/2023/03/14/blackpink-3_43.jpeg?w=360&q=90",
-    "https://i.ytimg.com/vi/KxgO5qlmxW4/maxresdefault.jpg",
-  ];
-  final List<String> image2 = <String>[
-    "https://awsimages.detik.net.id/community/media/visual/2022/08/09/lisa-blackpink-diduga-pakai-wig-1_43.jpeg?w=1200",
-    "https://asset.kompas.com/crops/IqvxMA6wuduz6i0-hs4ziNUqE80=/0x170:1080x890/750x500/data/photo/2022/03/08/62277f10ce7f7.jpg",
-    "https://akcdn.detik.net.id/visual/2023/08/11/jisoo-blackpink-3_43.jpeg?w=650&q=90",
-    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRe20NbGaYh6MpOLHGXuuk-FobedSECqxByww&usqp=CAU",
-    "https://static1.personality-database.com/profile_images/076e4b0ff49c4d658afe6be1371a02fd.png"
-  ];
 
-  final List<String> nama = <String>[
-    "Lisa ",
-    "Jennie Kim",
-    "Kim Ji-soo",
-    "Rosé",
-    "Supra"
+  final List<ListItem> itemList = [
+    ListItem(
+       "https://awsimages.detik.net.id/community/media/visual/2022/08/09/lisa-blackpink-diduga-pakai-wig-1_43.jpeg?w=1200",
+        "Lisa"),
+    ListItem(
+         "https://asset.kompas.com/crops/IqvxMA6wuduz6i0-hs4ziNUqE80=/0x170:1080x890/750x500/data/photo/2022/03/08/62277f10ce7f7.jpg",
+        "Jennie Kim"),
+    ListItem(
+        "https://akcdn.detik.net.id/visual/2023/08/11/jisoo-blackpink-3_43.jpeg?w=650&q=90",
+        "Kim Ji-soo"),
+    ListItem(
+        "https://img.okezone.com/content/2022/03/07/33/2557762/rose-blackpink-sembuh-dari-covid-19-Tsq9Wg3Ye0.jpg",
+        " Rosé"),
+    ListItem(
+        "https://cdns.klimg.com/dream.co.id/resized/664xauto-/photonews/2023/02/28/223611/masih-ingat-bocah-lucu-pipi-chubby-pemeran-boboho-dulu-disebut-hidup-susah-hingga-jualan-es-krim-kin-007.jpg",
+        "Boboho"),
   ];
-
-  final List<String> nama1 = <String>[
-
-    "Jadwal Konser BlackPink",
-    "Member Member BlackPink",
-    "BlackPink Konser",
-    "Album Lagu BlackPink"
-  ];
-  
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-         Container(
-          width: double.infinity,
-          height: 300,
-          margin: EdgeInsets.all(8),
-          padding: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-              image: DecorationImage(
-                  image: NetworkImage("https://www.kpoplover.it/wp-content/uploads/2020/10/1-SymUTw.jpeg"),
-                  fit: BoxFit.fill)),
-        ),
-        Container(
-          padding: EdgeInsets.all(10),
-          margin: EdgeInsets.all(10),
-          width: double.infinity,
-          height: 200,
-          child: ListView.builder(
-              padding: const EdgeInsets.all(8),
-              itemCount: image.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Container(
-                  margin: EdgeInsets.all(10),
-                  child: Column(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Text(
-                          '${nama1[index]}',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 15),
-                        ),
+    return Container(
+        width: double.infinity,
+        height: double.infinity,
+        child: ListView(
+          scrollDirection: Axis.vertical,
+          children: [
+            Column(
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: 120,
+                  margin: EdgeInsets.all(8),
+                  padding: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: NetworkImage(
+                            "https://i.redd.it/j2955rqs5xe91.jpg"),
+                        fit: BoxFit.cover),
+                  ),
+                ),
+                Column(
+                  children: [
+                    Container(
+                      width: 400,
+                      height: 200,
+                      margin: EdgeInsets.all(10),
+                      padding: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
                       ),
-                      Image.network(
-                        '${image[index]}',
-                        height: 200,
-                        fit: BoxFit.cover,
-                        width: double.infinity,
-                      )
-                    ],
-                  ),
-                );
-              }),
-        ),
-        Container(
-          padding: EdgeInsets.all(10),
-          margin: EdgeInsets.all(10),
-          width: double.infinity,
-          height: 170,
-          child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.all(3),
-              itemCount: image2.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Padding(
-                  padding: const EdgeInsets.all(3.0),
-                  child: Container(
-                    height: 100,
-                    width: 120,
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Image.network(
-                            '${image2[index]}',
-                            height: 100,
-                            fit: BoxFit.cover,
-                            width: double.infinity,
-                          ),
-                        ),
-                        Text(' ${nama[index]}',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 15))
-                      ],
-                    ),
-                    // child: Center(child: Text('Entry ${entries[index]}')),
-                  ),
-                );
-              }),
-        ),
-      ],
-    );
+                      child: ListView.separated(
+                          scrollDirection: Axis.vertical,
+                          itemCount: itemList.length,
+                          separatorBuilder: (context, index) {
+                            return Divider(
+                              color: Colors.pink,
+                            );
+                          },
+                          itemBuilder: (context, index) {
+                            return Container(
+                              margin: EdgeInsets.all(10),
+                              height: 100,
+                              width: 200,
+                              child: Row(
+                                children: [
+                                  Container(
+                                    width: 150,
+                                    height: 200,
+                                    decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                            image: NetworkImage(
+                                                itemList[index].imageUrl))),
+                                  ),
+                                  Row(
+                                    children: [
+                                      Container(
+                                        width: 200,
+                                        child: Text(itemList[index].text),
+                                      )
+                                    ],
+                                  )
+                                ],
+                              ),
+                            );
+                          }),
+                    )
+                  ],
+                ),
+                Column(
+                  children: [
+                    Text("Galery"),
+                    Container(
+                      width: 500,
+                      height: 150,
+                      child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: itemList.length,
+                          itemBuilder: (context, index) {
+                            return Container(
+                              margin: EdgeInsets.all(8),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    width: 100,
+                                    child: Image.network(
+                                      itemList[index].imageUrl,
+                                      width: 300,
+                                      height: 200,
+                                    ),
+                                  )
+                                ],
+                              ),
+                            );
+                          }),
+                    )
+                  ],
+                )
+              ],
+            )
+          ],
+        ));
   }
 }

@@ -23,9 +23,9 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          backgroundColor: Color.fromARGB(255, 252, 252, 0),
+          backgroundColor: Color.fromARGB(255, 182, 158, 187),
           title: Text("Belajar Flutter",
-            style: TextStyle(backgroundColor: const Color.fromARGB(255, 102, 112, 131)),
+            style: TextStyle(backgroundColor: Color.fromARGB(255, 174, 202, 255)),
         ),
         ),
         body: LatihanList(),
