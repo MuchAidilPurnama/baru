@@ -10,6 +10,9 @@ import 'package:belajar_flutter/listview/latihan_list.dart';
 import 'package:belajar_flutter/listview/list_basic.dart';
 import 'package:belajar_flutter/listview/list_builder.dart';
 import 'package:belajar_flutter/listview/list_separated.dart';
+import 'package:belajar_flutter/screens/home_screen.dart';
+import 'package:belajar_flutter/screens/menu_screen.dart';
+import 'package:belajar_flutter/screens/second_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -24,16 +27,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: "Ini Project Flutter Pertamaku",
-      home: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: Color.fromARGB(255, 182, 158, 187),
-          title: Text("Belajar Flutter",
-            style: TextStyle(backgroundColor: Color.fromARGB(255, 174, 202, 255)),
-        ),
-        ),
-        body: LatihanGrid(),
-      ),
+        // body: HomeScreen(),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => NavigationMenu(),
+          'second': (context) => SecondScreen(),
+          'third': (context) => ThirdScreen(),
+        }
     );
   }
 }
