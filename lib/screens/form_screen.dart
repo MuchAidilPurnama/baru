@@ -3,7 +3,6 @@ import 'package:belajar_flutter/screens/output_form.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-
 class BelajarForm extends StatefulWidget {
   const BelajarForm({super.key});
 
@@ -17,22 +16,36 @@ class _BelajarFormState extends State<BelajarForm> {
 
   //mendeskripsikan variabel input
   TextEditingController namaController = TextEditingController();
-  TextEditingController jkController = TextEditingController();
-  TextEditingController tglLahirController = TextEditingController();
-  String _pilihAgama = '';
+  TextEditingController jmlController = TextEditingController();
+  TextEditingController tglBerangkatController = TextEditingController();
+  String _pilihTujuan = '';
 
-  final List<String> agama = [
-    "Islam",
-    "Protestan",
-    "Budha",
-    "Katholik",
-    "Atheis",
+  final List<String> tujuan = [
+    "Laut Jawa",
+    "Laut Maluku",
+    "Laut Flores",
+    "Laut Sawu",
+    "Raja Ampat",
   ];
 
-  void initState() {
-    tglLahirController.text = '';
-    super.initState();
-  }
+  final Map<String, double> tujuanHarga = {
+    "Laut Jawa": 100000.0,
+    "Laut Maluku" : 80000.0,
+    "Laut Flores": 120000.0,
+    "Laut Sawu" : 87000.0,
+    "Raja Ampat": 90000.0,
+  };
+
+  final Map<String, String> tujuanImage = {
+    "Laut Jawa": "images/jawa.jpg",
+    "Laut Maluku" : "images/maluku.jpg",
+    "Laut Flores": "images/flores.jpg",
+    "Laut Sawu" : "images/sawu.jpg",
+    "Raja Ampat": "images/raja_ampat.jpg",
+  };
+
+  double selectedtujuanHarga = 10000.0;
+  String selectedtujuanImage = '';
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +71,7 @@ class _BelajarFormState extends State<BelajarForm> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text("Formulir Biodata"),
+                        Text("Formulir Berangkat"),
                         SizedBox(
                           height: 18,
                         ),
@@ -78,13 +91,13 @@ class _BelajarFormState extends State<BelajarForm> {
                           height: 18,
                         ),
                         TextFormField(
-                          controller: jkController,
+                          controller: jmlController,
                           decoration: InputDecoration(
-                              hintText: "Jenis Kelamin",
+                              hintText: "Jumlah Tiket",
                               border: OutlineInputBorder()),
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'Input Jenis Kelamin ';
+                              return 'Input Jumlah Tiket ';
                             }
                             return null;
                           },
@@ -93,13 +106,13 @@ class _BelajarFormState extends State<BelajarForm> {
                           height: 18,
                         ),
                         TextFormField(
-                          controller: tglLahirController,
+                          controller: tglBerangkatController,
                           decoration: InputDecoration(
-                              hintText: "Tanggal Lahir",
+                              hintText: "Tanggal Berangkat",
                               border: OutlineInputBorder()),
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'Input tanggal lahir ';
+                              return 'Input tanggal Berangkat ';
                             }
                             return null;
                           },
@@ -111,10 +124,10 @@ class _BelajarFormState extends State<BelajarForm> {
                               lastDate: DateTime(2100),
                             );
                             if (pickedDate != null) {
-                              String tglLahir =
+                              String tglBerangkat =
                                   DateFormat('yyyy-MM-dd').format(pickedDate);
                               setState(() {
-                                tglLahirController.text = tglLahir;
+                                tglBerangkatController.text = tglBerangkat;
                               });
                             } else {
                               print("tanggal tidak dipilih");
@@ -126,10 +139,10 @@ class _BelajarFormState extends State<BelajarForm> {
                         ),
                         DropdownButtonFormField(
                           decoration: InputDecoration(
-                              hintText: "agama",
-                              labelText: "pilih agama",
+                              hintText: "tujuan",
+                              labelText: "pilih tujuan",
                               border: OutlineInputBorder()),
-                          items: agama.map((String items) {
+                          items: tujuan.map((String items) {
                             int index = 0;
                             return DropdownMenuItem(
                               value: items,
@@ -138,7 +151,10 @@ class _BelajarFormState extends State<BelajarForm> {
                           }).toList(),
                           onChanged: (String? newValue) {
                             setState(() {
-                              _pilihAgama = newValue!;
+                              _pilihTujuan = newValue!;
+                               selectedtujuanHarga =
+                                  tujuanHarga[_pilihTujuan] ?? 10000.0;
+                              selectedtujuanImage = tujuanImage[_pilihTujuan] ?? '';
                             });
                           },
                         ),
@@ -150,6 +166,8 @@ class _BelajarFormState extends State<BelajarForm> {
                           height: displayHeight(context) * 0.075,
                           child: ElevatedButton(
                             style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.blueAccent),
                               shape: MaterialStateProperty.all<
                                   RoundedRectangleBorder>(
                                 RoundedRectangleBorder(
@@ -159,7 +177,10 @@ class _BelajarFormState extends State<BelajarForm> {
                                 ),
                               ),
                             ),
-                            child: Text("simpan"),
+                            child: Text(
+                              "simpan",
+                              style: TextStyle(color: Colors.white),
+                            ),
                             onPressed: () {
                               _submit();
                             },
@@ -184,14 +205,23 @@ class _BelajarFormState extends State<BelajarForm> {
     } else {
       _formKey.currentState!.save();
       String nama = namaController.text;
-      String jk = jkController.text;
-      String agama = _pilihAgama;
-      String tglLahir = tglLahirController.text;
+      String tujuan = _pilihTujuan;
+      String jumlah = jmlController.text;
+      String tglBerangkat = tglBerangkatController.text;
+      String img = selectedtujuanImage;
+      double totalHarga = double.parse(jumlah) * selectedtujuanHarga;
+      print(img);
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) =>
-              OutputFormScreen(nama: nama, jk: jk, tglLahir: tglLahir, agama: agama),
+          builder: (context) => OutputFormScreen(
+              nama: nama,
+              jumlah: jumlah,
+              tglBerangkat: tglBerangkat,
+              tujuan: _pilihTujuan,
+              selectedtujuanHarga: selectedtujuanHarga,
+              totalHarga: totalHarga,
+              tujuanImage: img,),
         ),
       );
     }
